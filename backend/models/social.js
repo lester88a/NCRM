@@ -1,6 +1,7 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const socialInfoSechema = new mongoose.Schema({
+const socialSechema = new mongoose.Schema({
     contactId: ObjectId,
     name: {
         type: String,
@@ -20,6 +21,10 @@ const socialInfoSechema = new mongoose.Schema({
         maxlength: 256
     },
     telegram: {
+        type: String,
+        maxlength: 256
+    },
+    instagram: {
         type: String,
         maxlength: 256
     },
@@ -72,3 +77,34 @@ const socialInfoSechema = new mongoose.Schema({
         default: Date.now
     }
 });
+
+
+const Social = new mongoose.model('Social', socialSechema);
+
+function validateSocial(social) {
+    const schema = {
+        contactId: ObjectId,
+        name: Joi.string().max(256).required(),
+        desc: Joi.string().max(768),
+        twitter: Joi.string().max(256),
+        facebook: Joi.string().max(256),
+        github: Joi.string().max(256),
+        telegram: Joi.string().max(256),
+        instagram: Joi.string().max(256),
+        whatsapp: Joi.string().max(256),
+        youtube: Joi.string().max(256),
+        snapchat: Joi.string().max(256),
+        linkedin: Joi.string().max(256),
+        skype: Joi.string().max(256),
+        wechat: Joi.string().max(256),
+        qq: Joi.string().max(256),
+        weibo: Joi.string().max(256),
+        createdBy: Joi.string().max(256),
+        modifiedBy: Joi.string().max(256)
+    }
+
+    return Joi.validate(social, schema);
+}
+
+module.exports.Social = Social;
+module.exports.validateSocial = validateSocial;

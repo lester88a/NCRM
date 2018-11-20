@@ -55,4 +55,4 @@ function validateExamination(examinatin) {
 }
 
 module.exports.Examination = Examination;
-module.exports.validateEducation = validateExamination;
+module.exports.validateExamination = validateExamination;

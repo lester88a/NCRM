@@ -67,4 +67,4 @@ function validateFee(fee) {
 }
 
 module.exports.Fee = Fee;
-module.exports.validateEducation = validateFee;
+module.exports.validateFee = validateFee;

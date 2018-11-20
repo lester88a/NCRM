@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const postSechema = new mongoose.Schema({
@@ -33,3 +34,26 @@ const postSechema = new mongoose.Schema({
     tags: [ObjectId],
     comments: [ObjectId]
 });
+
+const Post = new mongoose.model('Post', postSechema);
+
+function validatePost(post) {
+    const schema = {
+        contactId: ObjectId,
+        name: Joi.string().max(256),
+        desc: Joi.string().max(768),
+        title: Joi.string().min(2).max(256).required(),
+        content: Joi.string(),
+        viewsCount: Joi.number(),
+        createdBy: Joi.string().max(256),
+        modifiedBy: Joi.string().max(256),
+        tags: Joi.array().items(Joi.string().guid()),
+        comments: Joi.array().items(Joi.string().guid())
+
+    }
+
+    return Joi.validate(post, schema);
+}
+
+module.exports.Post = Post;
+module.exports.validatePost = validatePost;

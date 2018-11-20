@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const tagSechema = new mongoose.Schema({
@@ -21,6 +22,23 @@ const tagSechema = new mongoose.Schema({
     modifiedDate: {
         type: Date,
         default: Date.now
-    },
-    address: ObjectId
+    }
 });
+
+
+const Tag = new mongoose.model('Tag', tagSechema);
+
+function validateTag(tag) {
+    const schema = {
+        name: Joi.string().max(256).required(),
+        desc: Joi.string().max(768),
+        createdBy: Joi.string().max(256),
+        modifiedBy: Joi.string().max(256)
+
+    }
+
+    return Joi.validate(tag, schema);
+}
+
+module.exports.Tag = Tag;
+module.exports.validateTag = validateTag;

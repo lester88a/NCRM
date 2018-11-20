@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const roleSechema = new mongoose.Schema({
@@ -23,3 +24,20 @@ const roleSechema = new mongoose.Schema({
         default: Date.now
     }
 });
+
+const Role = new mongoose.model('Role', roleSechema);
+
+function validateRole(role) {
+    const schema = {
+        name: Joi.string().max(256).required(),
+        desc: Joi.string().max(768),
+        createdBy: Joi.string().max(256),
+        modifiedBy: Joi.string().max(256)
+
+    }
+
+    return Joi.validate(role, schema);
+}
+
+module.exports.Role = Role;
+module.exports.validateRole = validateRole;
