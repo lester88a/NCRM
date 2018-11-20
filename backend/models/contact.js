@@ -90,6 +90,14 @@ const contactSechema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    fileNumber: {
+        type: String,
+        maxlength: 20
+    },
+    registrationNumber: {
+        type: String,
+        maxlength: 20
+    },
     createdBy: {
         type: String,
         maxlength: 256
@@ -150,6 +158,9 @@ function validateContact(contact) {
         failedCount: Joi.number().positive(),
         viewsCount: Joi.number().positive(),
         isAdvanced: Joi.boolean(),
+        fileNumber: Joi.string().max(20),
+        registrationNumber: Joi.string().max(20),
+        middleName: Joi.string().max(20),
         createdBy: Joi.string().max(256),
         modifiedBy: Joi.string().max(256),
         homeAddress: Joi.string().guid(),
